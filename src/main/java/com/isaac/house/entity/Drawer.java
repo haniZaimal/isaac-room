@@ -17,12 +17,15 @@ public class Drawer {
     @Id
     @Column(name = "drawerID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int drawerID;
+    private Long drawerID;
 
     @Column(name = "category")
     private String category;
 
     @Column(name = "roomID")
-    private int roomID;
+    private Long roomID;
+
+    @Column(name = "storageLeft")
+    private int storageLeft;
 
 }
