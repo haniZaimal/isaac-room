@@ -1,10 +1,7 @@
 package com.isaac.house.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity(name = "Thing")
 @Table(name = "Thing", schema = "isaac_house")
@@ -18,7 +15,7 @@ public class Thing {
     @Id
     @Column(name = "thingID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int thingID;
+    private long thingID;
 
     @Column(name = "thingsName")
     private String thingsName;
@@ -30,8 +27,8 @@ public class Thing {
     private int quantity;
 
     @Column(name = "status")
-    private int status;
+    private String status;
 
     @Column(name = "drawerID")
-    private int drawerID;
+    private long drawerID;
 }
