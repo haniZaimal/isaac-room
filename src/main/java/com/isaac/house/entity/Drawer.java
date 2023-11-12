@@ -25,6 +25,9 @@ public class Drawer {
     @Column(name = "roomID")
     private Long roomID;
 
+    @Column(name = "thingID")
+    private Long thingID;
+
     @Column(name = "storageLeft")
     private int storageLeft;
 
