@@ -25,6 +25,9 @@ public class Drawer {
     @Column(name = "roomID")
     private Long roomID;
 
+    @Column(name = "roomName")
+    private String roomName;
+
     @Column(name = "thingID")
     private Long thingID;
 
