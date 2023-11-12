@@ -14,13 +14,13 @@ public class ResponseHandler {
         try {
             map.put("status", status.value());
             map.put("response", responseObj);
-            return new ResponseEntity<Object>(map,status);
         } catch (Exception e) {
+            e.printStackTrace();
             map.clear();
             map.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
             map.put("response", responseObj);
-            return new ResponseEntity<Object>(map,status);
         }
+        return new ResponseEntity<>(map,status);
     }
 
 }
