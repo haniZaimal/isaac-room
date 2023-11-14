@@ -31,6 +31,9 @@ public class Drawer {
     @Column(name = "thingID")
     private Long thingID;
 
+    @Column(name = "thingsName")
+    private String thingsName;
+
     @Column(name = "storageLeft")
     private int storageLeft;
 

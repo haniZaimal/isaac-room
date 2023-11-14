@@ -1,9 +1,12 @@
 package com.isaac.house.service;
 
 import com.isaac.house.entity.Drawer;
+import com.isaac.house.entity.Thing;
 import com.isaac.house.repository.DrawerRepo;
 import com.isaac.house.repository.RoomRepo;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +18,10 @@ public class DrawerService {
     private final DrawerRepo drawerRepo;
 
     private final RoomRepo roomRepo;
+
+    private final ThingService thingService;
+
+    private static final Logger log = LoggerFactory.getLogger(DrawerService.class);
 
     public List<Drawer> getAllDrawer(){
         return drawerRepo.findAll();
@@ -60,5 +67,32 @@ public class DrawerService {
         };
     }
 
+    public Drawer updateStorageLeft(Long drawerId, Long thingsId) {
+        //Drawer addDrawer = new Drawer();
+
+        // Fetch the drawer from the database using drawerId
+        Drawer drawer = drawerRepo.findById(drawerId)
+                .orElseThrow(() -> new RuntimeException("Drawer not found with ID: " + drawerId)
+                );
+
+        Thing thing = thingService.getThingById(thingsId);
+
+        if(thing != null && drawer != null) {
+            int storageLeft = drawer.getStorageLeft();
+            int thingSize = thing.getSize();
+
+            storageLeft -= thingSize;
+            log.debug("storage left: "+ storageLeft);
+            drawer.setStorageLeft(storageLeft);
+            drawer.setDrawerID(thingsId);
+            drawer.setThingsName(thing.getThingsName());
+
+        }
+        else
+            throw new RuntimeException("Things not found with ID: "+ thingsId);
+
+        return drawer;
+
+    }
 
 }
