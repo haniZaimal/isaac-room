@@ -6,10 +6,7 @@ import com.isaac.house.service.DrawerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class DrawerController {
 
     private final DrawerService drawerService;
-
-    /* TODO: Please uncomment once Room Entity and repository added
 
 
     @PostMapping("/drawer/create")
@@ -33,7 +28,6 @@ public class DrawerController {
         }
     }
 
-    */
 
     @PutMapping("/drawer/updateStorage")
     public ResponseEntity<?> updateStorage(@RequestParam Long drawerId, @RequestParam Long thingsId){
