@@ -1,6 +1,7 @@
 package com.isaac.house.service;
 
 import com.isaac.house.entity.Drawer;
+import com.isaac.house.entity.Room;
 import com.isaac.house.entity.Thing;
 import com.isaac.house.repository.DrawerRepo;
 import com.isaac.house.repository.RoomRepo;
@@ -31,8 +32,6 @@ public class DrawerService {
         return drawerRepo.findById(id).orElse(null);
     }
 
-    /* TODO: Please uncomment once Room Entity and repository added
-
     public Drawer createDrawer(Long roomId,Drawer drawer){
         Drawer addDrawer = new Drawer();
         String category = drawer.getCategory();
@@ -55,7 +54,6 @@ public class DrawerService {
         return addDrawer;
     }
 
-     */
 
     private int getDefaultStorageLeft(String category) {
         // Set default storageLeft based on the category
