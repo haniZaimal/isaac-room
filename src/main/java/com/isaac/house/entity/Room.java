@@ -23,5 +23,4 @@ public class Room {
     private Boolean isPublic;
 
 
-
 }

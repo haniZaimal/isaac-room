@@ -33,22 +33,32 @@ public class DrawerService {
     }
 
     public Drawer createDrawer(Long roomId,Drawer drawer){
-        Drawer addDrawer = new Drawer();
+
+        // Validate input
+        if (drawer == null) {
+            throw new IllegalArgumentException("Drawer cannot be null");
+        }
+
         String category = drawer.getCategory();
 
-        // Fetch the room from the database using roomId
-        // Uncomment once Room entity and repo created
-        Room room = roomRepo.findById(roomId)
-                .orElseThrow(() -> new RuntimeException("Room not found with ID: " + roomId)
-                );
+        if (category == null || category.isEmpty()) {
+            throw new IllegalArgumentException("Drawer category cannot be null or empty");
+        }
 
+        // Fetch the room from the database using roomId
+        Room room = roomRepo.findById(roomId)
+                .orElseThrow(() -> new RuntimeException("Room not found with ID: " + roomId));
+
+        // Create a new drawer
+        Drawer addDrawer = new Drawer();
         addDrawer.setRoomID(roomId);
         addDrawer.setRoomName(room.getRoomName());
-        addDrawer.setCategory(drawer.getCategory());
+        addDrawer.setCategory(category);
 
-        //When create new Drawer, storageLeft default according to the category
+        // When creating a new Drawer, set storageLeft default according to the category
         addDrawer.setStorageLeft(getDefaultStorageLeft(category));
-        //save into database
+
+        // Save into the database
         drawerRepo.save(addDrawer);
 
         return addDrawer;
@@ -78,12 +88,17 @@ public class DrawerService {
         if(thing != null && drawer != null) {
             int storageLeft = drawer.getStorageLeft();
             int thingSize = thing.getSize();
+            int quantity = thing.getQuantity();
 
+            thingSize*=quantity;
+            log.info("Thing size: "+ thingSize);
             storageLeft -= thingSize;
-            log.debug("storage left: "+ storageLeft);
+            log.info("storage left: "+ storageLeft);
             drawer.setStorageLeft(storageLeft);
-            drawer.setDrawerID(thingsId);
+            drawer.setThingID(thingsId);
             drawer.setThingsName(thing.getThingsName());
+
+            drawerRepo.save(drawer);
 
         }
         else

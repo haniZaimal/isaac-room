@@ -14,6 +14,26 @@ public class ThingService {
     private ThingRepo thingRepo;
 
     public Thing createThing(Thing thing){
+        String thingsName = thing.getThingsName();
+        int size = thing.getSize();
+        int quantity = thing.getQuantity();
+        String status = thing.getStatus();
+
+        if (thingsName == null || thingsName.isEmpty()) {
+            throw new IllegalArgumentException("Thing name cannot be null or empty");
+        }
+
+        if (size <= 0) {
+            throw new IllegalArgumentException("Size must be greater than 0");
+        }
+
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Quantity must be greater than 0");
+        }
+
+        if (status == null || status.isEmpty()) {
+            throw new IllegalArgumentException("Status cannot be null or empty");
+        }
         return thingRepo.save(thing);
     }
 
